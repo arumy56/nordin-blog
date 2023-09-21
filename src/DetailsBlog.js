@@ -6,12 +6,17 @@ import { db } from "./firebase";
 import {deleteDoc, doc} from "firebase/firestore"
 
 
+
 const DetailsBlog = () => {
     const { id } = useParams()
     const {blogs,ispend,iserr} = useFetch("blogpost")
     const history=useHistory()
     
     const blog = blogs?.find((item) => item.id === id); 
+
+
+
+    
 
     const handleClick= ()=>{
        const blogRef= doc(db,"blogpost",id)
@@ -25,6 +30,13 @@ const DetailsBlog = () => {
        })
 
     }
+    
+    const handleEdit = () => {
+      history.push(`/edit/${id}`);
+    };
+  
+
+    
 
 
     return ( 
@@ -37,6 +49,7 @@ const DetailsBlog = () => {
             <div>{blog.body}</div>
             <p>written by {blog.author}</p>
             <button onClick={handleClick}>Delete</button>
+            <button onClick={handleEdit}> Update</button>
            </article>
             )}
         </div>
